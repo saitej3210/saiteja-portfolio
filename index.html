@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3efe9">
+  <meta name="description" content="Kodi Saiteja — Python Developer, Flask Developer, aspiring Software Engineer. Projects, skills and contact.">
+  <title>Kodi Saiteja — Python &amp; Flask Developer</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <!-- Fonts load from Google Fonts when online; the CSS falls back to Impact / system fonts offline. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="loader" id="loader"><div class="loader-logo">SAITEJA<span>.</span></div><div class="loader-bar"><i id="loader-fill"></i></div><div class="loader-text" id="loader-text">LOADING 0%</div></div>
+
+  <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress-fill"></i></div>
+
+  <header class="nav" id="nav">
+    <a class="logo" href="#top" aria-label="Kodi Saiteja — home">SAITEJA<span>.</span></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+    <nav class="links" id="links">
+      <a href="#about" data-sec="about">About</a>
+      <a href="#work" data-sec="work">Work</a>
+      <a href="#journey" data-sec="journey">Journey</a>
+      <a href="#skills" data-sec="skills">Skills</a>
+      <a class="pill" href="https://saitej3210.github.io/novaryx-studio/" target="_blank" rel="noopener noreferrer">NOVARYX Studio ↗</a>
+      <a class="pill dark" href="#contact" data-sec="contact">Contact</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle theme">◐</button>
+    </nav>
+  </header>
+
+  <!-- One fixed canvas: the character plays across the whole page, scrubbed by scroll -->
+  <canvas id="character" aria-label="Kodi Saiteja — scroll-controlled character animation" role="img"></canvas>
+  <div class="grain"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="sec hero" id="top" data-frames="0,45" data-cx="0.72,0.72" data-k="0.98,0.98">
+      <div class="bg-word hero-word" aria-hidden="true">SAITEJA</div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow rv"><i class="dot"></i> HELLO, I'M KODI SAITEJA</p>
+          <h1 class="rv">PYTHON<br><em>DEVELOPER.</em></h1>
+          <p class="lead rv">Flask developer and aspiring software engineer. I turn messy problems into working web products, then ship them live.</p>
+          <div class="btns rv">
+            <a class="btn red" href="#work">See my work <b>↘</b></a>
+            <a class="btn ghost" href="#contact">Get in touch</a>
+            <a class="btn ghost" href="assets/Kodi_Saiteja_Resume.pdf" download>Download résumé ↓</a>
+          </div>
+        </div>
+        <p class="scroll-hint"><i></i> SCROLL</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="sec about" id="about" data-frames="45,100" data-cx="0.27,0.27" data-k="1.12,1.12">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <p class="tag rv">ABOUT / 01</p>
+          <h2 class="rv">Engineering undergrad who loves <em>shipping.</em></h2>
+          <p class="lead rv">I'm a B.Tech EEE student who turned toward software. I build Flask applications, work with SQL, and deploy real projects on Render so people can actually use them.</p>
+          <div class="stats rv">
+            <div class="stat"><strong>8.2</strong><span>CGPA / 10</span></div>
+            <div class="stat"><strong>4<i>+</i></strong><span>LIVE PROJECTS</span></div>
+            <div class="stat"><strong>2027</strong><span>GRADUATING</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="sec work" id="work" data-frames="100,175" data-cx="0.76,0.76" data-k="1.0,1.0">
+      <div class="wrap work-head"><p class="tag rv">SELECTED WORK / 02</p><h2 class="work-title rv">BUILT TO <em>WORK.</em></h2><div class="project-filters rv" role="group" aria-label="Filter projects"><button class="filter-btn active" data-filter="all" aria-pressed="true">All work <span>04</span></button><button class="filter-btn" data-filter="web" aria-pressed="false">Web apps</button><button class="filter-btn" data-filter="ai" aria-pressed="false">AI / tools</button><button class="filter-btn" data-filter="business" aria-pressed="false">Business</button></div></div>
+
+      <article class="proj" data-category="web">
+        <div class="wrap proj-grid">
+          <div class="card rv">
+            <div class="num">01 <small>/ 04</small></div>
+            <h3>PROCTORED ONLINE<br>EXAMINATION SYSTEM</h3>
+            <p>A Flask-based examination platform built to run proctored online assessments.</p>
+            <ul class="tags"><li>Python</li><li>Flask</li><li>SQL</li><li>Render</li></ul>
+            <div class="plinks"><a class="btn red sm" href="https://proctored-exam-system-9ndc.onrender.com/" target="_blank" rel="noopener noreferrer">Live project ↗</a><a class="btn ghost sm" href="https://github.com/saitej3210/proctored-exam-system" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj" data-category="ai">
+        <div class="wrap proj-grid">
+          <div class="card rv">
+            <div class="num">02 <small>/ 04</small></div>
+            <h3>SPEAKDECK AI</h3>
+            <p>An AI-powered presentation project, deployed live on Render.</p>
+            <ul class="tags"><li>Python</li><li>Web</li><li>Render</li></ul>
+            <div class="plinks"><a class="btn red sm" href="https://speakdeck-ai-frontend.onrender.com" target="_blank" rel="noopener noreferrer">Live project ↗</a></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj" data-category="business">
+        <div class="wrap proj-grid">
+          <div class="card rv">
+            <div class="num">03 <small>/ 04</small></div>
+            <h3>POCHAMPALLY<br>IKKAT SAREES</h3>
+            <p>An online storefront celebrating traditional Pochampally Ikkat sarees.</p>
+            <ul class="tags"><li>Python</li><li>Web</li><li>Render</li></ul>
+            <div class="plinks"><a class="btn red sm" href="https://pochampally-ikkat-sarees.onrender.com" target="_blank" rel="noopener noreferrer">Live project ↗</a><a class="btn ghost sm" href="https://github.com/saitej3210/pochampally-ikkat-sarees" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="proj" data-category="business">
+        <div class="wrap proj-grid">
+          <div class="card rv">
+            <div class="num">04 <small>/ 04</small></div>
+            <h3>LEADDESK<br>MINI CRM</h3>
+            <p>A lightweight CRM for organising leads and customer follow-ups.</p>
+            <ul class="tags"><li>Python</li><li>SQL</li><li>Render</li></ul>
+            <div class="plinks"><a class="btn red sm" href="https://leaddesk-mini-crm-vuy0.onrender.com" target="_blank" rel="noopener noreferrer">Live project ↗</a><a class="btn ghost sm" href="https://github.com/saitej3210/LeadDesk-Mini-CRM" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- JOURNEY -->
+    <section class="sec journey" id="journey" data-frames="175,205" data-cx="0.25,0.25" data-k="1.0,1.0">
+      <div class="bg-outline" aria-hidden="true">2027</div>
+      <div class="wrap journey-grid">
+        <div class="journey-copy">
+          <p class="tag rv">JOURNEY / 03</p>
+          <h2 class="rv">LEARNING<br><em>OUT LOUD.</em></h2>
+          <ul class="timeline rv">
+            <li><b>B.Tech, EEE</b><span>Sri Indu College of Engineering &amp; Technology</span><small>Expected 2027 · CGPA 8.2 / 10</small></li>
+            <li><b>Python &amp; Flask</b><span>Building and deploying full web applications</span><small>4 live projects on Render</small></li>
+            <li><b>Aspiring Software Engineer</b><span>Open to internships, roles and collaborations</span><small>SQL · Git · GitHub</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="sec skills" id="skills" data-frames="205,228" data-cx="0.5,0.5" data-k="1.0,1.0">
+      <div class="wrap skills-head">
+        <p class="tag rv">SKILLS / 04</p>
+        <h2 class="rv">EVERYTHING<br>IN <em>ORBIT.</em></h2>
+      </div>
+      <div class="orbit" aria-label="Skills">
+        <span class="chip" style="--a:0deg;--r:min(36vw,330px)"><span>Python</span></span>
+        <span class="chip red" style="--a:51deg;--r:min(30vw,280px)"><span>Flask</span></span>
+        <span class="chip" style="--a:103deg;--r:min(36vw,330px)"><span>SQL</span></span>
+        <span class="chip red" style="--a:154deg;--r:min(30vw,280px)"><span>Git</span></span>
+        <span class="chip" style="--a:206deg;--r:min(36vw,330px)"><span>GitHub</span></span>
+        <span class="chip red" style="--a:257deg;--r:min(30vw,280px)"><span>Render</span></span>
+        <span class="chip" style="--a:309deg;--r:min(36vw,330px)"><span>Web Development</span></span>
+      </div>
+      <div class="marquee" aria-hidden="true"><div><span>PYTHON ✦ FLASK ✦ SQL ✦ GIT ✦ GITHUB ✦ RENDER ✦ WEB DEVELOPMENT ✦ </span><span>PYTHON ✦ FLASK ✦ SQL ✦ GIT ✦ GITHUB ✦ RENDER ✦ WEB DEVELOPMENT ✦ </span></div></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sec contact" id="contact" data-frames="228,239" data-cx="0.5,0.5" data-k="1.02,1.02">
+      <div class="bg-word contact-word" aria-hidden="true">LET'S<br>TALK</div>
+      <div class="wrap contact-grid">
+        <p class="tag light rv">CONTACT / 05</p>
+        <div class="contact-main rv">
+          <a class="mail" href="mailto:saitejakodi3@gmail.com">KODI SAITEJA<br><u>SAITEJAKODI3@GMAIL.COM</u></a>
+          <button class="copy-email" id="copy-email" type="button" data-email="saitejakodi3@gmail.com">Copy email <span>↗</span></button>
+          <p class="phone"><a href="tel:+917569324738">+91 75693 24738</a></p>
+        </div>
+        <ul class="social rv">
+          <li><a href="https://github.com/saitej3210" target="_blank" rel="noopener noreferrer">GitHub <b>↗</b></a></li>
+          <li><a href="https://linkedin.com/in/kodi-saiteja" target="_blank" rel="noopener noreferrer">LinkedIn <b>↗</b></a></li>
+          <li><a href="mailto:saitejakodi3@gmail.com">Email <b>↗</b></a></li>
+          <li><a href="https://saitej3210.github.io/novaryx-studio/" target="_blank" rel="noopener noreferrer">NOVARYX Studio <b>↗</b></a></li>
+        </ul>
+        <p class="foot">© 2026 KODI SAITEJA · PYTHON &amp; FLASK DEVELOPER</p>
+      </div>
+    </section>
+  </main>
+
+  <button class="back-top" id="back-top" type="button" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
