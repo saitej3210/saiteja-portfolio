@@ -1,0 +1,58 @@
+/* Upgrade layer — loads after style.css */
+:root{--red:#a8502b;--red-dark:#7e3a1d;--gold:#c59a55;--cream:#f2ece3;--grad:linear-gradient(120deg,#a8502b,#c59a55)}
+em{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1{letter-spacing:.01em}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;padding-top:24px;padding-bottom:12vh}
+.pcard{display:flex;flex-direction:column;overflow:hidden;border-radius:24px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.7);box-shadow:0 30px 60px -36px rgba(0,0,0,.55);transition:transform .25s ease,box-shadow .3s}
+.pcard:hover{box-shadow:0 40px 70px -30px hsla(var(--h),40%,30%,.5)}
+.pcard[hidden]{display:none!important}
+.cover{position:relative;height:150px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 25% 20%,hsl(var(--h),34%,52%),hsl(calc(var(--h) + 30),30%,22%) 75%)}
+.cover::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.07) 0 2px,transparent 2px 14px)}
+.cover span{font:64px/1 var(--display);color:#fff;letter-spacing:.04em;text-shadow:0 8px 30px rgba(0,0,0,.35);z-index:1}
+.cover b{position:absolute;top:12px;left:16px;font:12px var(--mono);color:#fff;opacity:.85;z-index:1}
+.pbody{display:flex;flex-direction:column;gap:10px;padding:20px 22px 24px;flex:1}
+.pbody small{font:600 10px var(--mono);letter-spacing:.18em;color:var(--red)}
+.pbody h3{font:26px/1.05 var(--display);letter-spacing:.02em}
+.pbody p{font-size:14px;line-height:1.55;color:#3a3236;flex:1}
+.pbody .btn{align-self:flex-start;margin-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags li{font:11px var(--mono);padding:4px 10px;border-radius:99px;background:rgba(20,16,18,.07)}
+body.dark-theme .pcard{background:rgba(36,32,33,.8);border-color:rgba(255,255,255,.1)}
+body.dark-theme .pbody p{color:#d4c9c8}
+body.dark-theme .tags li{background:rgba(255,255,255,.1)}
+.btn.red{background:var(--grad);border:0}
+.scroll-progress i{background:var(--grad)}
+@media(max-width:860px){.pgrid{grid-template-columns:1fr}.cover{height:120px}}
+
+/* 3D layer + motion */
+#bg3d{position:fixed;inset:0;width:100vw;height:100vh;z-index:2;pointer-events:none}
+.pgrid{perspective:1400px}
+.pcard{position:relative;transform-style:preserve-3d;will-change:transform}
+.pcard.rv{opacity:0;transform:perspective(900px) rotateX(22deg) translateY(60px) scale(.96);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.pcard.rv.in{opacity:1;transform:none}
+.pcard:nth-child(3n+2){transition-delay:.1s}.pcard:nth-child(3n){transition-delay:.2s}
+.pcard.in:hover{transition-delay:0s;transition:transform .15s ease-out,box-shadow .3s}
+.pcard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.35),transparent 55%)}
+.pcard:hover::after{opacity:1}
+.cover span{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pcard:hover .cover span{transform:scale(1.15) translateY(-4px)}
+.cover::before{content:"";position:absolute;width:180px;height:180px;right:-50px;bottom:-70px;border-radius:50%;border:1px solid rgba(255,255,255,.28);box-shadow:0 0 0 24px rgba(255,255,255,.05),0 0 0 52px rgba(255,255,255,.04);animation:drift 9s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(-18px,-12px) scale(1.12)}}
+.hero h1 em{display:inline-block;animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-8px)}}
+.btn.red{box-shadow:0 14px 30px -14px rgba(168,80,43,.7);transition:transform .25s,box-shadow .25s}
+.btn.red:hover{transform:translateY(-3px);box-shadow:0 20px 34px -14px rgba(168,80,43,.8)}
+.stat{transition:transform .3s}.stat:hover{transform:translateY(-6px) rotateX(8deg)}
+.chip{transition:transform .3s}
+@media(prefers-reduced-motion:reduce){.pcard.rv{opacity:1;transform:none}.cover::before,.hero h1 em{animation:none}}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}.cover::after{display:none}.pcard:hover .cover img{transform:scale(1.07)}
+
+/* ===== Calm / professional pass: decorative motion removed ===== */
+.grain,.cover::before,.pcard::after{display:none!important}
+.dot,.scroll-hint i,.orbit,.chip>span,.marquee div,.hero h1 em{animation:none!important}
+.rv,.pcard.rv{transform:none!important;transition:opacity .4s ease!important;transition-delay:0s!important}
+.pcard{transform:none!important;will-change:auto}
+.pcard:hover{transform:translateY(-3px)!important;transition:transform .2s ease,box-shadow .2s!important}
+.pcard:hover .cover img{transform:none}
+.stat:hover,.btn.red:hover{transform:none}
+.chip{transition:none}

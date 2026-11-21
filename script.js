@@ -176,7 +176,7 @@
   themeButton?.addEventListener("click", () => setTheme(!document.body.classList.contains("dark-theme")));
 
   const filterButtons = [...document.querySelectorAll(".filter-btn")];
-  const projects = [...document.querySelectorAll(".proj[data-category]")];
+  const projects = [...document.querySelectorAll(".pcard[data-category]")];
   filterButtons.forEach(button => button.addEventListener("click", () => {
     const filter = button.dataset.filter || "all";
     filterButtons.forEach(b => { const active = b === button; b.classList.toggle("active", active); b.setAttribute("aria-pressed", String(active)); });
