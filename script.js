@@ -138,7 +138,18 @@
   setTimeout(finishLoader, 6000);   // never trap the visitor behind the loader
 
   /* ---------- UI: reveal, nav, menu ---------- */
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15 });
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function scramble(el) {
+    if (reduceMotion || el.dataset.scrambled) return;
+    el.dataset.scrambled = "1";
+    const final = el.textContent, chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/·", t0 = performance.now(), dur = 700;
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      el.textContent = final.split("").map((c, i) => c === " " || c === "/" || i < p * final.length ? c : chars[Math.random() * chars.length | 0]).join("");
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = final;
+    })(t0);
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); if (e.target.classList.contains("tag")) scramble(e.target); if (e.target.classList.contains("stats")) runCounters(); io.unobserve(e.target); } }), { threshold: 0.15 });
   document.querySelectorAll(".rv").forEach(el => io.observe(el));
 
   const navLinks = [...document.querySelectorAll(".links a[data-sec]")];
@@ -181,7 +192,21 @@
     const filter = button.dataset.filter || "all";
     filterButtons.forEach(b => { const active = b === button; b.classList.toggle("active", active); b.setAttribute("aria-pressed", String(active)); });
     projects.forEach(project => { project.hidden = filter !== "all" && project.dataset.category !== filter; });
+    tween(showN, projects.filter(p => !p.hidden).length);
+    if (navigator.vibrate) try { navigator.vibrate(8); } catch (_) {}
   }));
+  const showN = document.getElementById("showing-n");
+  document.getElementById("showing-total").textContent = projects.length;
+  filterButtons.forEach(b => {                       // live counts on every filter chip
+    const f = b.dataset.filter, n = f === "all" ? projects.length : projects.filter(p => p.dataset.category === f).length;
+    let sp = b.querySelector("span"); if (!sp) { sp = document.createElement("span"); b.appendChild(sp); } sp.textContent = n;
+  });
+  function tween(el, to) {
+    if (!el) return; const from = +el.textContent || 0;
+    if (reduceMotion || from === to) { el.textContent = to; return; }
+    const t0 = performance.now();
+    (function step(now) { const p = Math.min((now - t0) / 350, 1); el.textContent = Math.round(from + (to - from) * p); if (p < 1) requestAnimationFrame(step); })(t0);
+  }
 
   const toast = document.getElementById("toast");
   let toastTimer;
@@ -199,6 +224,79 @@
     } catch (_) { showToast("Email: " + email); }
   });
   document.getElementById("back-top")?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }));
+
+  /* ---------- stat counters ---------- */
+  let counted = false;
+  function runCounters() {
+    if (counted) return; counted = true;
+    document.querySelectorAll("[data-count]").forEach(el => {
+      const to = parseFloat(el.dataset.count), from = parseFloat(el.dataset.from || 0), dec = +(el.dataset.dec || 0);
+      if (reduceMotion) { el.textContent = to.toFixed(dec); return; }
+      const t0 = performance.now(), dur = 1400;
+      (function step(now) {
+        const p = Math.min((now - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = (from + (to - from) * e).toFixed(dec);
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+    });
+  }
+
+  /* ---------- rotating role line (typewriter) ---------- */
+  const roleEl = document.getElementById("role-text");
+  const roles = ["Python developer", "3D web builder", "Flask & React engineer", "ESP32 tinkerer", "creative builder"];
+  if (roleEl && !reduceMotion) {
+    let ri = 0, ci = roles[0].length, del = true;
+    const type = () => {
+      if (del) { ci--; if (ci <= 0) { del = false; ri = (ri + 1) % roles.length; } }
+      else { ci++; if (ci >= roles[ri].length) { del = true; roleEl.textContent = roles[ri]; return setTimeout(type, 1700); } }
+      roleEl.textContent = roles[ri].slice(0, Math.max(ci, 0)) || "​";
+      setTimeout(type, del ? 35 : 70);
+    };
+    setTimeout(type, 2200);
+  }
+
+  /* ---------- custom cursor ring + magnetic buttons (mouse only) ---------- */
+  if (matchMedia("(hover:hover) and (pointer:fine)").matches && !reduceMotion) {
+    document.body.classList.add("has-cursor");
+    const ring = document.getElementById("cursor-ring"), dot = document.getElementById("cursor-dot");
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+    addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; document.body.classList.add("cursor-on"); }, { passive: true });
+    document.addEventListener("mouseleave", () => document.body.classList.remove("cursor-on"));
+    (function loop() { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); })();
+    const hot = "a,button,.pcard,.chip,input,textarea,label";
+    document.addEventListener("mouseover", e => ring.classList.toggle("hot", !!e.target.closest(hot)));
+    document.querySelectorAll(".btn,.theme-toggle,.copy-email,.back-top").forEach(el => {
+      el.addEventListener("mousemove", e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--tx", ((e.clientX - r.left - r.width / 2) * 0.22).toFixed(1) + "px");
+        el.style.setProperty("--ty", ((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1) + "px");
+      });
+      el.addEventListener("mouseleave", () => { el.style.setProperty("--tx", "0px"); el.style.setProperty("--ty", "0px"); });
+    });
+  }
+
+  /* ---------- contact form: Formspree/endpoint if set, otherwise opens a prefilled email ---------- */
+  const form = document.getElementById("cform"), note = document.getElementById("form-note");
+  form?.addEventListener("submit", async e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    if (d._gotcha) return;
+    if (!d.name?.trim() || !/^\S+@\S+\.\S+$/.test(d.email || "") || !d.message?.trim()) { note.textContent = "Please fill name, a valid email and a message."; return; }
+    const ep = form.dataset.endpoint, btn = form.querySelector(".send");
+    if (ep) {
+      btn.disabled = true; note.textContent = "Sending…";
+      try {
+        const r = await fetch(ep, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(d) });
+        if (!r.ok) throw 0;
+        form.reset(); note.textContent = "Thanks — message sent. I'll reply soon."; showToast("Message sent ✓");
+      } catch (_) { note.textContent = "Couldn't send. Please email me directly."; }
+      btn.disabled = false;
+    } else {
+      const sub = encodeURIComponent("Portfolio message from " + d.name), body = encodeURIComponent(d.message + "\n\n— " + d.name + " (" + d.email + ")");
+      location.href = `mailto:${form.dataset.email}?subject=${sub}&body=${body}`;
+      note.textContent = "Opening your email app…";
+    }
+  });
 
   resize();
   updateScrollUI();

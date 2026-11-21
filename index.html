@@ -7,15 +7,25 @@
   <meta name="description" content="Kodi Saiteja — software developer and creative builder. 10 live projects: Flask, React, Three.js, ESP32. Open to Python / software engineering internships.">
   <title>Kodi Saiteja — Software Developer &amp; Creative Builder</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kodi Saiteja — Software Developer &amp; Creative Builder">
+  <meta property="og:description" content="10 live projects: Flask, React, Three.js, ESP32. Open to Python / software engineering internships.">
+  <meta property="og:image" content="https://saitej3210.github.io/saiteja-portfolio/assets/og.png">
+  <meta property="og:url" content="https://saitej3210.github.io/saiteja-portfolio/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://saitej3210.github.io/saiteja-portfolio/assets/og.png">
   <!-- Fonts load from Google Fonts when online; the CSS falls back to Impact / system fonts offline. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="upgrade.css">
+  <link rel="stylesheet" href="polish.css">
 </head>
 <body>
   <div class="loader" id="loader"><div class="loader-logo">SAITEJA<span>.</span></div><div class="loader-bar"><i id="loader-fill"></i></div><div class="loader-text" id="loader-text">LOADING 0%</div></div>
+
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div><div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
 
   <div class="scroll-progress" aria-hidden="true"><i id="scroll-progress-fill"></i></div>
 
@@ -44,7 +54,9 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow rv"><i class="dot"></i> HELLO, I'M KODI SAITEJA</p>
+          <p class="status rv"><i></i> Open to Python / software internships · 2027 graduate</p>
           <h1 class="rv">BUILD. <br><em>CREATE. SHIP.</em></h1>
+          <p class="roles rv" aria-live="off"><span class="roles-pre">I'm a</span> <span id="role-text">Python developer</span><i class="caret" aria-hidden="true"></i></p>
           <p class="lead rv">Software developer and creative builder. Python, Flask, React and 3D web — 10 live projects shipped, and more on the way.</p>
           <div class="btns rv">
             <a class="btn red" href="#work">See my work <b>↘</b></a>
@@ -64,9 +76,9 @@
           <h2 class="rv">Engineering undergrad who loves <em>shipping.</em></h2>
           <p class="lead rv">I'm a B.Tech EEE student who turned toward software. I build Flask apps, React + Three.js experiences and ESP32 electronics — and I deploy everything live so people can actually use it.</p>
           <div class="stats rv">
-            <div class="stat"><strong>8.2</strong><span>CGPA / 10</span></div>
-            <div class="stat"><strong>10<i>+</i></strong><span>LIVE PROJECTS</span></div>
-            <div class="stat"><strong>2027</strong><span>GRADUATING</span></div>
+            <div class="stat"><strong><span data-count="8.2" data-dec="1" data-from="0">8.2</span></strong><span>CGPA / 10</span></div>
+            <div class="stat"><strong><span data-count="10" data-from="0">10</span><i>+</i></strong><span>LIVE PROJECTS</span></div>
+            <div class="stat"><strong><span data-count="2027" data-from="2018">2027</span></strong><span>GRADUATING</span></div>
           </div>
         </div>
       </div>
@@ -74,7 +86,7 @@
 
     <!-- WORK -->
     <section class="sec work" id="work" data-frames="100,175" data-cx="0.76,0.76" data-k="1.0,1.0">
-      <div class="wrap work-head"><p class="tag rv">SELECTED WORK / 02</p><h2 class="work-title rv">10 LIVE <em>PROJECTS.</em></h2><div class="project-filters rv" role="group" aria-label="Filter projects"><button class="filter-btn active" data-filter="all" aria-pressed="true">All <span>10</span></button><button class="filter-btn" data-filter="web" aria-pressed="false">Web apps</button><button class="filter-btn" data-filter="ai" aria-pressed="false">AI / tools</button><button class="filter-btn" data-filter="business" aria-pressed="false">Business</button><button class="filter-btn" data-filter="creative" aria-pressed="false">Creative / 3D</button></div></div>
+      <div class="wrap work-head"><p class="tag rv">SELECTED WORK / 02</p><h2 class="work-title rv">10 LIVE <em>PROJECTS.</em></h2><div class="project-filters rv" role="group" aria-label="Filter projects"><button class="filter-btn active" data-filter="all" aria-pressed="true">All <span>10</span></button><button class="filter-btn" data-filter="web" aria-pressed="false">Web apps</button><button class="filter-btn" data-filter="ai" aria-pressed="false">AI / tools</button><button class="filter-btn" data-filter="business" aria-pressed="false">Business</button><button class="filter-btn" data-filter="creative" aria-pressed="false">Creative / 3D</button></div><p class="showing rv" aria-live="polite">SHOWING <b id="showing-n">10</b> / <span id="showing-total">10</span> PROJECTS · CLICK A CARD FOR THE CASE STUDY</p></div>
       <div class="wrap pgrid" id="pgrid"></div>
     </section>
 
@@ -86,9 +98,13 @@
           <p class="tag rv">JOURNEY / 03</p>
           <h2 class="rv">LEARNING<br><em>OUT LOUD.</em></h2>
           <ul class="timeline rv">
-            <li><b>B.Tech, EEE</b><span>Sri Indu College of Engineering &amp; Technology</span><small>Expected 2027 · CGPA 8.2 / 10</small></li>
-            <li><b>Python &amp; Flask</b><span>Flask apps, React + Three.js experiences, ESP32 electronics</span><small>10 live projects online</small></li>
-            <li><b>Seeking Python / Software Internship</b><span>Open to internships, roles and collaborations</span><small>SQL · Git · GitHub</small></li>
+            <li><i class="yr">NOW</i><b>Seeking Python / Software Internship</b><span>Open to internships, roles and collaborations</span><small>SQL · Git · GitHub</small></li>
+            <li><i class="yr">LIVE</i><b>10 projects shipped &amp; deployed</b><span>Flask apps, React + Three.js experiences, storefronts and business sites — all online</span><small>Render · Railway · GitHub Pages</small></li>
+            <li><i class="yr">STUDIO</i><b>NOVARYX Studio</b><span>My creative digital studio — websites and immersive experiences for brands</span><small>Web design · 3D web</small></li>
+            <li><i class="yr">BUILD</i><b>Python &amp; Flask → full-stack</b><span>Turned from electronics toward software: Flask, React, Three.js and ESP32</span><small>Self-driven, project-first learning</small></li>
+            <li><i class="yr">2027</i><b>B.Tech, EEE</b><span>Sri Indu College of Engineering &amp; Technology</span><small>Expected 2027 · CGPA 8.2 / 10</small></li>
+            <!-- ADD YOUR OWN: certifications, hackathons, awards. Copy a <li> above, e.g.
+            <li><i class="yr">2025</i><b>Hackathon / Certificate name</b><span>Issuer or what you built</span><small>Result</small></li> -->
           </ul>
         </div>
       </div>
@@ -99,15 +115,16 @@
       <div class="wrap skills-head">
         <p class="tag rv">SKILLS / 04</p>
         <h2 class="rv">EVERYTHING<br>IN <em>ORBIT.</em></h2>
+        <p class="skills-hint rv">HOVER OR TAP A SKILL — SEE WHERE I USED IT</p>
       </div>
-      <div class="orbit" aria-label="Skills">
-        <span class="chip" style="--a:0deg;--r:min(36vw,330px)"><span>Python</span></span>
-        <span class="chip red" style="--a:51deg;--r:min(30vw,280px)"><span>Flask</span></span>
-        <span class="chip" style="--a:103deg;--r:min(36vw,330px)"><span>React</span></span>
-        <span class="chip red" style="--a:154deg;--r:min(30vw,280px)"><span>JavaScript</span></span>
-        <span class="chip" style="--a:206deg;--r:min(36vw,330px)"><span>Three.js</span></span>
-        <span class="chip red" style="--a:257deg;--r:min(30vw,280px)"><span>C / Java</span></span>
-        <span class="chip" style="--a:309deg;--r:min(36vw,330px)"><span>ESP32</span></span>
+      <div class="orbit" aria-label="Skills — hover or tap a skill to see where I used it">
+        <span class="chip" style="--a:0deg;--r:min(36vw,330px)" tabindex="0"><span><b class="ic">Py</b>Python<small class="used"><u>Where I used it</u>Proctored Exam System · SpeakDeck AI</small></span></span>
+        <span class="chip red" style="--a:51deg;--r:min(30vw,280px)" tabindex="0"><span><b class="ic">Fl</b>Flask<small class="used"><u>Where I used it</u>Proctored Exam System</small></span></span>
+        <span class="chip" style="--a:103deg;--r:min(36vw,330px)" tabindex="0"><span><b class="ic">Re</b>React<small class="used"><u>Where I used it</u>NOIR CAFÉ</small></span></span>
+        <span class="chip red" style="--a:154deg;--r:min(30vw,280px)" tabindex="0"><span><b class="ic">JS</b>JavaScript<small class="used"><u>Where I used it</u>This portfolio · GOOD PIZZAS</small></span></span>
+        <span class="chip" style="--a:206deg;--r:min(36vw,330px)" tabindex="0"><span><b class="ic">3D</b>Three.js<small class="used"><u>Where I used it</u>NOIR CAFÉ · GOOD PIZZAS</small></span></span>
+        <span class="chip red" style="--a:257deg;--r:min(30vw,280px)" tabindex="0"><span><b class="ic">C/J</b>C / Java<small class="used"><u>Where I used it</u>Coursework &amp; core programming</small></span></span>
+        <span class="chip" style="--a:309deg;--r:min(36vw,330px)" tabindex="0"><span><b class="ic">ES</b>ESP32<small class="used"><u>Where I used it</u>EEE &amp; IoT electronics</small></span></span>
       </div>
       <div class="marquee" aria-hidden="true"><div><span>PYTHON ✦ FLASK ✦ REACT ✦ THREE.JS ✦ JAVASCRIPT ✦ C ✦ JAVA ✦ ESP32 ✦ GIT ✦ AWS ✦ </span><span>PYTHON ✦ FLASK ✦ REACT ✦ THREE.JS ✦ JAVASCRIPT ✦ C ✦ JAVA ✦ ESP32 ✦ GIT ✦ AWS ✦ </span></div></div>
     </section>
@@ -121,7 +138,17 @@
           <a class="mail" href="mailto:saitejakodi3@gmail.com">KODI SAITEJA<br><u>SAITEJAKODI3@GMAIL.COM</u></a>
           <button class="copy-email" id="copy-email" type="button" data-email="saitejakodi3@gmail.com">Copy email <span>↗</span></button>
           <p class="phone"><a href="tel:+917569324738">+91 75693 24738</a></p>
+          <p class="status light"><i></i> Open to internships — replies within a day or two</p>
         </div>
+        <form class="cform rv" id="cform" data-endpoint="" data-email="saitejakodi3@gmail.com" novalidate>
+          <h3>SAY HELLO</h3>
+          <label><span>Name</span><input name="name" type="text" autocomplete="name" required placeholder="Your name"></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" required placeholder="you@company.com"></label>
+          <label><span>Message</span><textarea name="message" rows="4" required placeholder="Tell me about the role or project…"></textarea></label>
+          <input class="hp" name="_gotcha" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn send" type="submit">Send message <b>↗</b></button>
+          <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+        </form>
         <ul class="social rv">
           <li><a href="https://github.com/saitej3210" target="_blank" rel="noopener noreferrer">GitHub <b>↗</b></a></li>
           <li><a href="https://linkedin.com/in/kodi-saiteja" target="_blank" rel="noopener noreferrer">LinkedIn <b>↗</b></a></li>
@@ -134,7 +161,24 @@
   </main>
 
   <button class="back-top" id="back-top" type="button" aria-label="Back to top">↑</button>
+  <dialog class="pmodal" id="pmodal" aria-labelledby="pm-title">
+    <button class="pm-close" id="pm-close" type="button" aria-label="Close case study">✕</button>
+    <div class="pm-media" id="pm-media"></div>
+    <div class="pm-info">
+      <small id="pm-cat"></small>
+      <h3 id="pm-title"></h3>
+      <p class="pm-sum" id="pm-sum"></p>
+      <dl>
+        <dt>Problem</dt><dd id="pm-problem"></dd>
+        <dt>My role</dt><dd id="pm-role"></dd>
+        <dt>What I built</dt><dd><ul class="pm-built" id="pm-built"></ul></dd>
+        <dt>Stack</dt><dd><ul class="tags" id="pm-tags"></ul></dd>
+      </dl>
+      <div class="pm-actions"><a class="btn red" id="pm-live" href="#" target="_blank" rel="noopener noreferrer">Open live project ↗</a><button class="btn ghost" id="pm-next" type="button">Next project →</button></div>
+    </div>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="shots.js"></script>
   <script src="projects.js"></script>
   <script src="script.js"></script>
 </body>
